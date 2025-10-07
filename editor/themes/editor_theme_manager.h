@@ -79,13 +79,8 @@ public:
 		float gizmo_handle_scale = 1.0;
 		int inspector_property_height = 28;
 		float subresource_hue_tint = 0.0;
-		float dragging_hover_wait_msec = 0;
 
-		// Make sure to keep those in sync with the definitions in the editor settings.
-		const float default_icon_saturation = 2.0;
-		const int default_relationship_lines = RELATIONSHIP_SELECTED_ONLY;
-		const float default_contrast = 0.35;
-		const int default_corner_radius = 4;
+		float default_contrast = -0.6;
 
 		// Generated properties.
 
