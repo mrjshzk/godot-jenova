@@ -80,7 +80,15 @@ public:
 		int inspector_property_height = 28;
 		float subresource_hue_tint = 0.0;
 
+<<<<<<< HEAD
 		float default_contrast = -0.6;
+=======
+		// Make sure to keep those in sync with the definitions in the editor settings.
+		const float default_icon_saturation = 2.0;
+		const int default_relationship_lines = RELATIONSHIP_SELECTED_ONLY;
+		const float default_contrast = -0.2;
+		const int default_corner_radius = 4;
+>>>>>>> 02456ca099 (Theme Update)
 
 		// Generated properties.
 
