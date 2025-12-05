@@ -534,7 +534,7 @@ bool FileDialog::_is_open_should_be_disabled() {
 }
 
 void FileDialog::_go_up() {
-	_change_dir("..");
+	_change_dir(get_current_dir().trim_suffix("/").get_base_dir());
 	_push_history();
 }
 
@@ -998,7 +998,7 @@ void FileDialog::update_file_list() {
 				thumbnail = vicon;
 			}
 			if (thumbnail.is_null()) {
-				thumbnail = theme_cache.file;
+				thumbnail = theme_cache.file_thumbnail;
 			}
 			file_list->set_item_icon(-1, thumbnail);
 			if (icon.is_valid()) {
@@ -1064,8 +1064,11 @@ void FileDialog::_file_list_select_first() {
 }
 
 void FileDialog::_delete_confirm() {
-	OS::get_singleton()->move_to_trash(_get_item_path(_get_selected_file_idx()));
-	invalidate();
+	Error err = OS::get_singleton()->move_to_trash(_get_item_path(_get_selected_file_idx()));
+	if (err == OK) {
+		invalidate();
+		_dir_contents_changed();
+	}
 }
 
 void FileDialog::_filename_filter_selected() {
@@ -1537,6 +1540,7 @@ FileDialog::Access FileDialog::get_access() const {
 void FileDialog::_make_dir_confirm() {
 	Error err = dir_access->make_dir(new_dir_name->get_text().strip_edges());
 	if (err == OK) {
+		_dir_contents_changed();
 		_change_dir(new_dir_name->get_text().strip_edges());
 		update_filters();
 		_push_history();
